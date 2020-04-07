@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MoviesList from './src/components/MoviesList';
 import MovieDetail from './src/components/MovieDetail'
-import { Ionicons } from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,12 +39,12 @@ export default function App() {
           let iconName
 
           if (route.name === 'PopularMovies') {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline'
+            iconName = 'star'
+          } else {
+            iconName = 'thumbs-up'
           }
 
-          return <Ionicons name={iconName} size={size} color={color} />
+          return <Icon name={iconName} size={size} color={color} solid={focused} />
         }
       })}
       >
