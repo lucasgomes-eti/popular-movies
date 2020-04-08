@@ -9,5 +9,8 @@ export const environment = {
     routes: {
         popular_movies: '/movie/popular',
         top_rated_movies: '/movie/top_rated'
+    },
+    storage_keys: {
+        movies: '@movies'
     }
 }

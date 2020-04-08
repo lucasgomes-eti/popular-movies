@@ -221,6 +221,8 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.5)
   - ReactNativeDarkMode (0.2.2):
     - React
+  - RNCAsyncStorage (1.9.0):
+    - React
   - RNCMaskedView (0.1.7):
     - React
   - RNGestureHandler (1.6.1):
@@ -263,6 +265,7 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeDarkMode (from `../node_modules/react-native-dark-mode`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -327,6 +330,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeDarkMode:
     :path: "../node_modules/react-native-dark-mode"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
@@ -368,6 +373,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   ReactNativeDarkMode: 0178ffca3b10f6a7c9f49d6f9810232b328fa949
+  RNCAsyncStorage: b16697280b08bab4b5f2f67f752d93d13a52e9ed
   RNCMaskedView: 90dd32f5b786bd562e876e1421ea77c700cbf71e
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
@@ -375,6 +381,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 9448d78101f6dd4520f54529a6bca3f9b409c271
+PODFILE CHECKSUM: a828ea2eb17592d6b4b69b2243026f628db85b6d
 
 COCOAPODS: 1.8.4

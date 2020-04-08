@@ -14,7 +14,7 @@ const PopularMoviesStack = createStackNavigator();
 function PopularMoviesListStackScreen() {
   return (
     <PopularMoviesStack.Navigator screenOptions={{ headerShown: false }}>
-      <PopularMoviesStack.Screen name="PopularMovies" component={MoviesList} initialParams={{ isPopular: true }} />
+      <PopularMoviesStack.Screen name="PopularMovies" component={MoviesList} initialParams={{ movieListType: MoviesListType.POPULAR }} />
       <PopularMoviesStack.Screen name="MovieDetail" component={MovieDetail} options={({ route }) => ({ title: route.params.movie.title })} />
     </PopularMoviesStack.Navigator>
   )
@@ -25,9 +25,20 @@ const TopRatedMoviesStack = createStackNavigator();
 function TopRatedMoviesListStackScreen() {
   return (
     <TopRatedMoviesStack.Navigator screenOptions={{ headerShown: false }}>
-      <TopRatedMoviesStack.Screen name="TopRatedMovies" component={MoviesList} initialParams={{ isPopular: false }} />
+      <TopRatedMoviesStack.Screen name="TopRatedMovies" component={MoviesList} initialParams={{ movieListType: MoviesListType.TOP_RATED }} />
       <TopRatedMoviesStack.Screen name="MovieDetail" component={MovieDetail} options={({ route }) => ({ title: route.params.movie.title })} />
     </TopRatedMoviesStack.Navigator>
+  )
+}
+
+const FavoriteMoviesStack = createStackNavigator();
+
+function FavoriteMoviesListStackScreen() {
+  return (
+    <FavoriteMoviesStack.Navigator screenOptions={{ headerShown: false }}>
+      <FavoriteMoviesStack.Screen name="FavoriteMovies" component={MoviesList} initialParams={{ movieListType: MoviesListType.FAVORITES }} />
+      <FavoriteMoviesStack.Screen name="MovieDetail" component={MovieDetail} options={({ route }) => ({ title: route.params.movie.title })} />
+    </FavoriteMoviesStack.Navigator>
   )
 }
 
@@ -37,20 +48,33 @@ export default function App() {
       <Tab.Navigator screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName
-
-          if (route.name === 'PopularMovies') {
-            iconName = 'star'
-          } else {
-            iconName = 'thumbs-up'
+          switch (route.name) {
+            case 'PopularMovies':
+              iconName = 'star'
+              break;
+            case 'TopRatedMovies':
+              iconName = 'thumbs-up'
+              break;
+            case 'FavoriteMovies':
+              iconName = 'heart'
+              break;
+            default:
+              break;
           }
-
           return <Icon name={iconName} size={size} color={color} solid={focused} />
         }
       })}
       >
         <Tab.Screen name="PopularMovies" component={PopularMoviesListStackScreen} options={{ title: 'Popular' }} />
         <Tab.Screen name="TopRatedMovies" component={TopRatedMoviesListStackScreen} options={{ title: 'Top Rated' }} />
+        <Tab.Screen name="FavoriteMovies" component={FavoriteMoviesListStackScreen} options={{ title: 'Favorites' }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
+}
+
+export const MoviesListType = {
+  POPULAR: 'popular',
+  TOP_RATED: 'top_rated',
+  FAVORITES: 'favorites'
 }
