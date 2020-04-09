@@ -6,6 +6,8 @@ import { environment } from '../helpers/environment'
 import { MoviesListType } from '../../App'
 import AsyncStorage from '@react-native-community/async-storage';
 import useMovies from '../services/useMovies';
+import { useDarkMode } from 'react-native-dark-mode';
+import { colors } from '../helpers/colors';
 
 const styles = StyleSheet.create({
   movie: {
@@ -72,9 +74,11 @@ export default function MoviesList({ route }) {
   const { movieListType } = route.params
 
   const [data, setData, loading] = useMovies(movieListType, getFavorites);
+  const isInDarkMode = useDarkMode()
 
   return (
     <FlatList
+      style={{ backgroundColor: colors.background(isInDarkMode) }}
       data={data}
       renderItem={({ item }) => <Movie movie={item}
         isInFavoriteScreen={movieListType === MoviesListType.FAVORITES} setData={setData} />}

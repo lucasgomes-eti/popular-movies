@@ -2,21 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Image, Text, TouchableOpacity, StyleSheet, View, FlatList, Linking } from 'react-native'
 import { environment } from '../helpers/environment'
 import axios from 'axios'
+import useVideos from '../services/useVideos'
+import { colors } from '../helpers/colors'
 import { useDarkMode } from 'react-native-dark-mode'
 
 export default function MovieDetail({ route }) {
 
     const { movie } = route.params
 
-    const [videos, setVideos] = useState([]);
+    const [videos] = useVideos(movie.id);
 
-    useEffect(() => {
-        (async () => {
-            const { data: result } = await axios.get(`${environment.api.base_url}/movie/${movie.id}/videos?api_key=${environment.api.api_key}`)
-            setVideos(result)
-            console.log('network call videos')
-        })();
-    }, [])
+    const isInDarkMode = useDarkMode()
 
     renderHeader = () => {
         return (
@@ -27,42 +23,40 @@ export default function MovieDetail({ route }) {
                         uri: environment.api.images_base_url + movie.poster_path,
                     }} />
                 <View>
-                    <Text style={styles.title}>{movie.title}</Text>
-                    <Text style={styles.body}>{movie.overview}</Text>
+                    <Text style={[styles.title, { color: colors.colorOnSurface(isInDarkMode) }]}>{movie.title}</Text>
+                    <Text style={[styles.body, { color: colors.colorOnSurface(isInDarkMode) }]}>{movie.overview}</Text>
                     <View style={styles.movieScoreContainer}>
                         <Text style={[styles.movieScore, { backgroundColor: movie.vote_average >= 7 ? 'lime' : 'yellow' }]}>{movie.vote_average}</Text>
                         <View>
-                            <Text style={styles.subtitle}>Release Date</Text>
-                            <Text style={styles.releaseDate}>{new Date(movie.release_date).toDateString()}</Text>
+                            <Text style={[styles.subtitle, { color: colors.colorOnSurface(isInDarkMode) }]}>Release Date</Text>
+                            <Text style={[styles.releaseDate, { color: colors.colorOnSurface(isInDarkMode) }]}>{new Date(movie.release_date).toDateString()}</Text>
                         </View>
                     </View>
-                    <Text style={styles.title}>Videos</Text>
+                    <Text style={[styles.title, { color: colors.colorOnSurface(isInDarkMode) }]}>Videos</Text>
                 </View>
             </View>
         )
     };
 
-    const isDarkMode = useDarkMode()
-
     return (
-        <View>
-            <FlatList
-                data={videos.results}
-                renderItem={({ item }) => <Video video={item} />}
-                keyExtractor={item => item.id}
-                ListHeaderComponent={renderHeader}
-            />
-        </View>
+        <FlatList
+            style={{ backgroundColor: colors.background(isInDarkMode) }}
+            data={videos.results}
+            renderItem={({ item }) => <Video video={item} />}
+            keyExtractor={item => item.id}
+            ListHeaderComponent={renderHeader}
+        />
     );
 }
 
 function Video({ video }) {
+    const isInDarkMode = useDarkMode()
     return (
         <TouchableOpacity activeOpacity={0.7} onPress={() => {
             Linking.openURL(environment.api.youtube_video_base_url + video.key)
         }}>
             <View>
-                <Text style={styles.subtitle}>{video.name}</Text>
+                <Text style={[styles.subtitle, { color: colors.colorOnSurface(isInDarkMode) }]}>{video.name}</Text>
                 <Image
                     style={styles.thumb}
                     source={{

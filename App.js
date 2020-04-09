@@ -6,6 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MoviesList from './src/modules/MoviesList';
 import MovieDetail from './src/modules/MovieDetail'
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { colors } from './src/helpers/colors';
+import { useDarkMode } from 'react-native-dark-mode';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +45,7 @@ function FavoriteMoviesListStackScreen() {
 }
 
 export default function App() {
+  const isInDarkMode = useDarkMode()
   return (
     <NavigationContainer>
       <Tab.Navigator screenOptions={({ route }) => ({
@@ -64,7 +67,7 @@ export default function App() {
           return <Icon name={iconName} size={size} color={color} solid={focused} />
         }
       })}
-      >
+        tabBarOptions={{ activeTintColor: 'tomato', inactiveTintColor: 'gray', style: { backgroundColor: colors.background(isInDarkMode) } }}>
         <Tab.Screen name="PopularMovies" component={PopularMoviesListStackScreen} options={{ title: 'Popular' }} />
         <Tab.Screen name="TopRatedMovies" component={TopRatedMoviesListStackScreen} options={{ title: 'Top Rated' }} />
         <Tab.Screen name="FavoriteMovies" component={FavoriteMoviesListStackScreen} options={{ title: 'Favorites' }} />
