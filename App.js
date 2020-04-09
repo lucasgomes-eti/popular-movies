@@ -3,8 +3,8 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MoviesList from './src/components/MoviesList';
-import MovieDetail from './src/components/MovieDetail'
+import MoviesList from './src/modules/MoviesList';
+import MovieDetail from './src/modules/MovieDetail'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Tab = createBottomTabNavigator();
